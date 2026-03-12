@@ -1,14 +1,8 @@
 package dev.afinovicz.projetoEcommerce.config;
 
-import dev.afinovicz.projetoEcommerce.entities.Category;
-import dev.afinovicz.projetoEcommerce.entities.Product;
+import dev.afinovicz.projetoEcommerce.entities.*;
 import dev.afinovicz.projetoEcommerce.entities.enums.OrderStatus;
-import dev.afinovicz.projetoEcommerce.repositories.CategoryRepository;
-import dev.afinovicz.projetoEcommerce.repositories.OrderRepository;
-import dev.afinovicz.projetoEcommerce.repositories.ProductRepository;
-import dev.afinovicz.projetoEcommerce.repositories.UserRepositoy;
-import dev.afinovicz.projetoEcommerce.entities.User;
-import dev.afinovicz.projetoEcommerce.entities.Order;
+import dev.afinovicz.projetoEcommerce.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +21,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepositoy orderItemRepositoy;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,5 +58,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepositoy.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepositoy.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
