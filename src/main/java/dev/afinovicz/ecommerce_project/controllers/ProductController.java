@@ -18,18 +18,21 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    // Buscar produto por id
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         ProductDTO dto = productService.findById(id);
         return ResponseEntity.ok(dto);
     }
 
+    // Buscar de todos os produtos de forma paginada
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
         Page<ProductDTO> dto = productService.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
 
+    // Criação de novo produto
     @PostMapping("/")
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
         dto = productService.insert(dto);
@@ -37,10 +40,18 @@ public class ProductController {
         return ResponseEntity.created(uri).body(dto);
     }
 
+    // Atualizar informações de um produto através do id
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
         dto = productService.update(id, dto);
         return ResponseEntity.ok(dto);
+    }
+
+    // Deletar produto por id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
