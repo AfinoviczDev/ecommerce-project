@@ -21,8 +21,8 @@ public class ProductController {
     // Buscar produto por id
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-        ProductDTO dto = productService.findById(id);
-        return ResponseEntity.ok(dto);
+            ProductDTO dto = productService.findById(id);
+            return ResponseEntity.ok(dto);
     }
 
     // Buscar de todos os produtos de forma paginada
