@@ -2,6 +2,7 @@ package dev.afinovicz.ecommerce_project.controllers;
 
 import dev.afinovicz.ecommerce_project.dto.ProductDTO;
 import dev.afinovicz.ecommerce_project.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class ProductController {
 
     // Criação de novo produto
     @PostMapping("/")
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO dto) {
         dto = productService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
@@ -42,7 +43,7 @@ public class ProductController {
 
     // Atualizar informações de um produto através do id
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id,@Valid @RequestBody ProductDTO dto) {
         dto = productService.update(id, dto);
         return ResponseEntity.ok(dto);
     }
